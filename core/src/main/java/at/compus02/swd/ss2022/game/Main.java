@@ -32,7 +32,8 @@ public class Main extends ApplicationAdapter {
 		batch = new SpriteBatch();
 
 		FactoryCreateTile factory = new FactoryCreateTile();
-		factory.calculatePositions(gameObjects);
+		factory.calculateBackground(gameObjects);
+		factory.calculateSign(gameObjects);
 
 		//gameObjects.add(new Tile_water());
 
@@ -54,6 +55,9 @@ public class Main extends ApplicationAdapter {
 			gameObject.draw(batch);
 		}
 		font.draw(batch, "Hello Game", -220, -220);
+
+
+
 		batch.end();
 	}
 
