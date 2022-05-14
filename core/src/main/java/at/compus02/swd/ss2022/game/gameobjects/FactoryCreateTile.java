@@ -31,21 +31,26 @@ public class FactoryCreateTile {
         float x = -240;
         float y = 210;
 
-        int amountTiles = 16;
+        int amountTiles = 256;
+        int countTile = 0;
 
         for(int j = 0; j < 16; j++) {
 
-            for (int i = 0; i < amountTiles; i++) {
+            for (int i = 0; i < 16; i++) {
 
                 gameObjects.add(createStartingTiles("Water"));
-                gameObjects.get(i).setPosition(x, y);
+                gameObjects.get(countTile).setPosition(x, y);
                 x += 30;
+                countTile+=1;
+
 
             }
 
             y -= 30;
             x = -240;
         }
+
+
 
 
         return gameObjects;
