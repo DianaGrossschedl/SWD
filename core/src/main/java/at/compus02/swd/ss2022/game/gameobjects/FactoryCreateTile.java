@@ -52,15 +52,7 @@ public class FactoryCreateTile {
         return gameObjects;
     }
 
-    public Array<GameObject> setPlayer(String player, Array<GameObject> gameObjects){
-        float x = -15;
-        float y = -15;
-        //Array<GameObject> gameObjects = new Array<>();
-                gameObjects.add(getTile(player));
-                gameObjects.get(gameObjects.size-1).setPosition(x, y);
 
-        return gameObjects;
-    }
 
     public void drawOneElement(String tile, Array<GameObject> gameObjects, int xCoordinate, int yCoordinate){
 

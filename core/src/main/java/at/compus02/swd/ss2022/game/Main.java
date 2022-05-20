@@ -31,11 +31,14 @@ public class Main extends ApplicationAdapter {
 
 		FactoryCreateTile factory = new FactoryCreateTile();
 		factory.calculateBackground(gameObjects);
-		factory.setPlayer("Dog", gameObjects);
+
+		FactoryCreatePlayer player = new FactoryCreatePlayer();
+		player.setPlayer("Dog", gameObjects);
 
 
 		factory.drawOneElement("Stone",gameObjects,1,1);
 		factory.drawOneElement("Stone",gameObjects,14,3);
+		factory.drawOneElement("Bush",gameObjects,10,1);
 
 
 		factory.drawElements("Water", gameObjects);
