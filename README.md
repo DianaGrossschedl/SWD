@@ -1,3 +1,7 @@
+### Gruppenmitglieder:
+Kaschowitz Jasmin, Habitzl Carina, Lobo de Castro Guilherme, Großschedl Diana
+
+
 # SWDGame
 
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/tommyettinger/gdx-liftoff).
