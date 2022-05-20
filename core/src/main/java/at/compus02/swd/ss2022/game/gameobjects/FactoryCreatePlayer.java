@@ -5,8 +5,8 @@ import com.badlogic.gdx.utils.Array;
 public class FactoryCreatePlayer extends FactoryCreateTile{
 
     public Array<GameObject> setPlayer(String player, Array<GameObject> gameObjects){
-        float x = -15;
-        float y = -15;
+        float x = 0;
+        float y = 0;
         //Array<GameObject> gameObjects = new Array<>();
         gameObjects.add(getTile(player));
         gameObjects.get(gameObjects.size-1).setPosition(x, y);
@@ -14,4 +14,9 @@ public class FactoryCreatePlayer extends FactoryCreateTile{
         return gameObjects;
     }
 
+    @Override
+    public void drawOneElement(String tile, Array<GameObject> gameObjects, int xCoordinate, int yCoordinate) {
+        super.drawOneElement(tile, gameObjects, xCoordinate, yCoordinate);
+
+    }
 }

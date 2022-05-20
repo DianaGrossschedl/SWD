@@ -33,7 +33,7 @@ public class Main extends ApplicationAdapter {
 		factory.calculateBackground(gameObjects);
 
 		FactoryCreatePlayer player = new FactoryCreatePlayer();
-		player.setPlayer("Dog", gameObjects);
+		player.drawOneElement("Dog", gameObjects,8,8);
 
 
 		factory.drawOneElement("Stone",gameObjects,1,1);

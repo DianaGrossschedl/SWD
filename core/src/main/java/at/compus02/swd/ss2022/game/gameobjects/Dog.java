@@ -8,6 +8,7 @@ public class Dog implements GameObject {
     private Texture image;
     private Sprite sprite;
 
+
     public Dog() {
         image = new Texture("dog.png");
         sprite = new Sprite(image);
