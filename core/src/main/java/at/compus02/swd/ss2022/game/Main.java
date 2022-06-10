@@ -11,6 +11,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -33,15 +37,28 @@ public class Main extends ApplicationAdapter {
 		factory.calculateBackground(gameObjects);
 
 		FactoryCreatePlayer player = new FactoryCreatePlayer();
-		player.drawOneElement("Dog", gameObjects,8,8);
-
+		//player.drawOneElement("Dog", gameObjects,8,8);
 
 		factory.drawOneElement("Stone",gameObjects,1,1);
 		factory.drawOneElement("Stone",gameObjects,14,3);
 		factory.drawOneElement("Bush",gameObjects,10,1);
-
-
 		factory.drawElements("Water", gameObjects);
+
+		Dog bingo = new Dog();
+		gameObjects.add(bingo);
+		gameInput.getDog(bingo);
+
+		try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
+			int key;
+			while((key = br.read())!= -1){
+				gameInput.keyDown(key);
+
+			}
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+
+
 
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
