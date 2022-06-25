@@ -1,5 +1,7 @@
-package at.compus02.swd.ss2022.game.gameobjects;
+package at.compus02.swd.ss2022.game.factories;
 
+import at.compus02.swd.ss2022.game.gameobjects.*;
+import at.compus02.swd.ss2022.game.gameobjects.moveables.Dog;
 import com.badlogic.gdx.utils.Array;
 
 public class FactoryCreateTile {

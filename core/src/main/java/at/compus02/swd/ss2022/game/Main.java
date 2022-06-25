@@ -1,7 +1,11 @@
 package at.compus02.swd.ss2022.game;
 
+import at.compus02.swd.ss2022.game.factories.FactoryCreateTile;
 import at.compus02.swd.ss2022.game.gameobjects.*;
+import at.compus02.swd.ss2022.game.gameobjects.moveables.Dog;
+import at.compus02.swd.ss2022.game.gameobjects.moveables.Flea;
 import at.compus02.swd.ss2022.game.input.GameInput;
+import at.compus02.swd.ss2022.game.observer.MovementObserver;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -11,9 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -29,34 +31,65 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
+
+
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
+		FactoryCreateTile tileFactory = new FactoryCreateTile();
 
-		FactoryCreateTile factory = new FactoryCreateTile();
-		factory.calculateBackground(gameObjects);
+		tileFactory.calculateBackground(gameObjects);
+		/*for (int i = 0; i < 16; i++) {
+			tileFactory.drawOneElement("Water",gameObjects, 3, i);
+		}*/
 
-		FactoryCreatePlayer player = new FactoryCreatePlayer();
-		//player.drawOneElement("Dog", gameObjects,8,8);
-
-		factory.drawOneElement("Stone",gameObjects,1,1);
-		factory.drawOneElement("Stone",gameObjects,14,3);
-		factory.drawOneElement("Bush",gameObjects,10,1);
-		factory.drawElements("Water", gameObjects);
+		tileFactory.drawOneElement("Stone",gameObjects,1,1);
+		tileFactory.drawOneElement("Stone",gameObjects,14,3);
+		tileFactory.drawOneElement("Bush",gameObjects,10,1);
+		tileFactory.drawElements("Water", gameObjects);
 
 		Dog bingo = new Dog();
+
+		Flea[] fleas = gameInput.getFleas();
+
+		for (int i = 0; i < fleas.length; i++) {
+			fleas[i] = new Flea();
+
+			int x = (int)(-240 +  Math.random() * 240);
+			int y = (int)(-240 + Math.random() * 240);
+
+			x = x - (x % 35);
+			y = y - (y % 35);
+
+			//int x = 100;
+			//int y = 100;
+
+			fleas[i].setPosition(x,y);
+
+
+		}
+
+
+		//Flea flea1 = new Flea();
+
+		MovementObserver cgo = new MovementObserver(gameInput);
+
 		gameObjects.add(bingo);
+
+
+		//gameObjects.add(flea1);
 		gameInput.getDog(bingo);
 
-		try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
-			int key;
-			while((key = br.read())!= -1){
-				gameInput.keyDown(key);
+		//gameInput.getFleas();
 
-			}
-		} catch (IOException e){
-			e.printStackTrace();
+		for (int i = 0; i < fleas.length; i++) {
+			gameObjects.add(fleas[i]);
+			gameInput.getFlea(fleas[i]);
 		}
+
+		//gameInput.getFlea(flea1);
+		gameInput.registerObserver(cgo);
+		gameInput.run();
 
 
 
@@ -78,9 +111,6 @@ public class Main extends ApplicationAdapter {
 			gameObject.draw(batch);
 		}
 		font.draw(batch, "Hello Game", -220, -220);
-
-
-
 		batch.end();
 	}
 

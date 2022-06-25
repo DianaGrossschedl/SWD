@@ -1,47 +1,20 @@
-package at.compus02.swd.ss2022.game.gameobjects;
+package at.compus02.swd.ss2022.game.gameobjects.moveables;
 
+import at.compus02.swd.ss2022.game.observer.GameObservable;
+import at.compus02.swd.ss2022.game.observer.GameObserver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Observable;
 
-public class Dog implements GameObject {
-    private Texture image;
-    private Sprite sprite;
-    private float currentPositionX;
-    private float currentPositionY;
-
-
-    public float getCurrentPositionX() {
-        return currentPositionX;
-    }
-
-    public float getCurrentPositionY() {
-        return currentPositionY;
-    }
+public class Dog extends Player implements GameObservable {
 
     public Dog() {
         image = new Texture("dog.png");
         sprite = new Sprite(image);
-    }
-    @Override
-    public void act(float delta) {
-
-    }
-
-    @Override
-    public void setPosition(float x, float y) {
-        sprite.setPosition(x, y);
-        currentPositionX = x;
-        currentPositionY = y;
-    }
-
-    @Override
-    public void draw(SpriteBatch batch) {
-        sprite.draw(batch);
     }
 
     public void bark() {
@@ -59,4 +32,18 @@ public class Dog implements GameObject {
         }
     }
 
+    @Override
+    public void registerObserver(GameObserver o) {
+
+    }
+
+    @Override
+    public void removeObserver(GameObserver o) {
+
+    }
+
+    @Override
+    public void notifyObservers() {
+
+    }
 }
