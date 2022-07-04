@@ -26,7 +26,7 @@ public class FactoryCreateTile {
             case "Gravel":
                 return new Tile_gravel();
             case "Dog":
-                return new Dog();
+                return Dog.getInstance();
             default:
                 return null;
         }

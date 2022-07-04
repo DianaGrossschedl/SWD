@@ -8,11 +8,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Observable;
 
 public class Dog extends Player implements GameObservable {
 
-    public Dog() {
+    private static Dog instance = new Dog();
+
+    public static Dog getInstance(){
+        return instance;
+    }
+
+    private Dog() {
         image = new Texture("dog.png");
         sprite = new Sprite(image);
     }

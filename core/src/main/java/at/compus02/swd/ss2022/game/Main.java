@@ -48,7 +48,7 @@ public class Main extends ApplicationAdapter {
 		tileFactory.drawOneElement("Bush",gameObjects,10,1);
 		tileFactory.drawElements("Water", gameObjects);
 
-		Dog bingo = new Dog();
+		Dog bingo = Dog.getInstance();
 
 		Flea[] fleas = gameInput.getFleas();
 
@@ -65,7 +65,6 @@ public class Main extends ApplicationAdapter {
 			//int y = 100;
 
 			fleas[i].setPosition(x,y);
-
 
 		}
 
