@@ -1,11 +1,15 @@
 package at.compus02.swd.ss2022.game;
 
+import at.compus02.swd.ss2022.game.behavior.RightLeftBehavior;
+import at.compus02.swd.ss2022.game.behavior.UpDownBehavior;
+import at.compus02.swd.ss2022.game.factories.FactoryCreateEnemy;
+import at.compus02.swd.ss2022.game.factories.FactoryCreatePlayer;
 import at.compus02.swd.ss2022.game.factories.FactoryCreateTile;
 import at.compus02.swd.ss2022.game.gameobjects.*;
 import at.compus02.swd.ss2022.game.gameobjects.moveables.Dog;
 import at.compus02.swd.ss2022.game.gameobjects.moveables.Flea;
 import at.compus02.swd.ss2022.game.input.GameInput;
-import at.compus02.swd.ss2022.game.observer.MovementObserver;
+import at.compus02.swd.ss2022.game.observer.PositionObserver;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -26,7 +30,7 @@ public class Main extends ApplicationAdapter {
 
 	private Array<GameObject> gameObjects = new Array<>();
 
-	private final float updatesPerSecond = 60;
+	private final float updatesPerSecond = 4; // original value == 60
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
@@ -37,23 +41,30 @@ public class Main extends ApplicationAdapter {
 	public void create() {
 		batch = new SpriteBatch();
 		FactoryCreateTile tileFactory = new FactoryCreateTile();
+		FactoryCreatePlayer playerFactory = new FactoryCreatePlayer();
+		FactoryCreateEnemy enemyFactory = new FactoryCreateEnemy();
 
 		tileFactory.calculateBackground(gameObjects);
 		/*for (int i = 0; i < 16; i++) {
-			tileFactory.drawOneElement("Water",gameObjects, 3, i);
+			tileFactory.drawOneElement("Water",gameObjects,3,i);
 		}*/
+		tileFactory.drawElements("Water",gameObjects);
 
-		tileFactory.drawOneElement("Stone",gameObjects,1,1);
-		tileFactory.drawOneElement("Stone",gameObjects,14,3);
-		tileFactory.drawOneElement("Bush",gameObjects,10,1);
-		tileFactory.drawElements("Water", gameObjects);
-
+		//Dog bingo = new Dog();
 		Dog bingo = Dog.getInstance();
+		PositionObserver dogObserver = new PositionObserver();
 
-		Flea[] fleas = gameInput.getFleas();
+		gameInput.takeGameObjects(gameObjects);
+		gameObjects.add(bingo);
+		gameInput.takeDog(bingo);
+		gameInput.registerObserver(dogObserver);
+		gameInput.run();
 
-		for (int i = 0; i < fleas.length; i++) {
-			fleas[i] = new Flea();
+		Flea[] fleaList = gameInput.getFleaList();
+
+		for (int i = 0; i <fleaList.length ; i++) {
+			fleaList[i] = new Flea();
+			gameObjects.add(fleaList[i]);
 
 			int x = (int)(-240 +  Math.random() * 240);
 			int y = (int)(-240 + Math.random() * 240);
@@ -61,35 +72,30 @@ public class Main extends ApplicationAdapter {
 			x = x - (x % 35);
 			y = y - (y % 35);
 
-			//int x = 100;
-			//int y = 100;
+			fleaList[i].setPosition(x,y);
 
-			fleas[i].setPosition(x,y);
+			//enemyFactory.drawOneElement(fleaList[i],gameObjects,x,y );
+
+			if (i%2 == 0){
+				fleaList[i].setBehavior(new UpDownBehavior(dogObserver));
+			} else{
+				fleaList[i].setBehavior(new RightLeftBehavior(dogObserver));
+			}
+
 
 		}
 
+		/*Flea flea1 = new Flea();
+		enemyFactory.drawOneElement(flea1, gameObjects,5, 7);
+		flea1.setBehavior(new UpDownBehavior(dogObserver));
+		gameInput.takeFlea(flea1);
 
-		//Flea flea1 = new Flea();
+		Flea flea2 = new Flea();
+		enemyFactory.drawOneElement(flea2, gameObjects, 10, 10);
+		flea2.setBehavior(new RightLeftBehavior(dogObserver));
+		gameInput.takeFlea(flea2);
 
-		MovementObserver cgo = new MovementObserver(gameInput);
-
-		gameObjects.add(bingo);
-
-
-		//gameObjects.add(flea1);
-		gameInput.getDog(bingo);
-
-		//gameInput.getFleas();
-
-		for (int i = 0; i < fleas.length; i++) {
-			gameObjects.add(fleas[i]);
-			gameInput.getFlea(fleas[i]);
-		}
-
-		//gameInput.getFlea(flea1);
-		gameInput.registerObserver(cgo);
-		gameInput.run();
-
+		*/
 
 
 		font = new BitmapFont();
@@ -109,7 +115,7 @@ public class Main extends ApplicationAdapter {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
 		}
-		font.draw(batch, "Hello Game", -220, -220);
+		font.draw(batch, "points: " + gameInput.getPoints(), -220, -220);
 		batch.end();
 	}
 

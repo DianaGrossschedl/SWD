@@ -21,4 +21,11 @@ public class FactoryCreateEnemy extends FactoryCreateTile {
 
     }
 
+    public void drawOneElement(GameObject gameObject, Array<GameObject> gameObjects, int xCoordinate, int yCoordinate){
+
+        gameObjects.add(gameObject);
+        gameObjects.get(gameObjects.size-1).setPosition(calculatePosition(xCoordinate),calculatePosition(yCoordinate));
+
+    }
+
 }
