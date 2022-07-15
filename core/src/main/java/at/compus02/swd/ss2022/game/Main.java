@@ -69,8 +69,8 @@ public class Main extends ApplicationAdapter {
 			int x = (int)(-240 +  Math.random() * 240);
 			int y = (int)(-240 + Math.random() * 240);
 
-			x = x - (x % 35);
-			y = y - (y % 35);
+			x = x - (x % 30);
+			y = y - (y % 30);
 
 			fleaList[i].setPosition(x,y);
 

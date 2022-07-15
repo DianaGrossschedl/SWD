@@ -22,6 +22,7 @@ public class RightLeftBehavior extends Behavior {
 
     }
 
+
     public void runAway(Player player) {
         if (positionObserver.getX() + 90 == player.getX()
                 || positionObserver.getX() + 60 == player.getX()

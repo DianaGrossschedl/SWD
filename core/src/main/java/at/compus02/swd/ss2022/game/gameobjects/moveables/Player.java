@@ -40,21 +40,45 @@ public class Player implements GameObject, Moveable {
     }
 
     @Override
-    public void moveUp() { this.setPosition(this.getX(), this.getY() + 30);}
+    public void moveUp() {
+        if (this.getY() >= 210){
+            // do nothing
+        }
+        else{
+            this.setPosition(this.getX(), this.getY() + 30);}
+        }
+
 
     @Override
     public void moveDown() {
-        this.setPosition(this.getX(), this.getY() - 30);
+        if (this.getY() <= -240){
+            // do nothing
+        }
+        else{
+            this.setPosition(this.getX(), this.getY() - 30);
+        }
+
     }
 
     @Override
     public void moveRight() {
-        this.setPosition(this.getX() + 30, this.getY());
+        if (this.getX() >= 210){
+            // do nothing
+        }
+        else{
+            this.setPosition(this.getX() + 30, this.getY());
+        }
     }
 
     @Override
     public void moveLeft() {
-        this.setPosition(this.getX() - 30, this.getY());
+        if (this.getX() <= -240){
+            // do nothing
+        }
+        else{
+            this.setPosition(this.getX() - 30, this.getY());
+        }
+
     }
 
 }
