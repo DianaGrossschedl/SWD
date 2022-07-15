@@ -29,11 +29,12 @@ public class GameInput extends InputAdapter implements GameObservable {
     }
 
     //ArrayList<Flea> fleaList = new ArrayList<>();
-    Flea[] fleaList = new Flea[(int)(Math.random()*10)];
+    Flea[] fleaList = new Flea[(int)(Math.random()*7+3)];
 
     Array<GameObject> gameObjects;
     int points = 0;
     int count = 0;
+    int countFleasRemoved = 0;
 
     public int getPoints() {
         return points;
@@ -74,36 +75,61 @@ public class GameInput extends InputAdapter implements GameObservable {
         }
         if (keycode == Input.Keys.SPACE) {
             dog.bark();
-
+            int index = 0;
             for (Flea flea : fleaList) {
-                if (dog.getX() == flea.getX() + 30
+                if (dog.getX() == flea.getX() + 30 && dog.getY() == flea.getY()
                         || dog.getX() == flea.getX() - 30
                         && dog.getY() == flea.getY()) {
                     if (Objects.equals(flea.getBehavior().getClass(), RightLeftBehavior.class)) {
                         gameObjects.removeValue(flea, true);
+                        fleaList[index] = new Flea();
+                        countFleasRemoved++;
+                        System.out.println(countFleasRemoved + "/" + fleaList.length + " fleas; points: 20");
+                        if (countFleasRemoved == fleaList.length){
+                            System.out.println("Congratulations! Bingo has defeated all fleas.");
+                        }
                         points += 20;
                     } else if (Objects.equals(flea.getBehavior().getClass(), UpDownBehavior.class)) {
                         count++;
                         if (count >= 2) {
                             gameObjects.removeValue(flea, true);
+                            fleaList[index] = new Flea();
+                            countFleasRemoved++;
+                            System.out.println(countFleasRemoved + "/" + fleaList.length + " fleas; points: 10");
+                            if (countFleasRemoved == fleaList.length){
+                                System.out.println("Congratulations! Bingo has defeated all fleas.");
+                            }
                             points += 10;
                         }
                     }
-                } else if (dog.getY() == flea.getY() + 30
+                } else if (dog.getY() == flea.getY() + 30 && dog.getX() == flea.getX()
                         || dog.getY() == flea.getY() - 30
                         && dog.getX() == flea.getX()) {
                     if (Objects.equals(flea.getBehavior().getClass(), RightLeftBehavior.class)) {
                         gameObjects.removeValue(flea, true);
+                        fleaList[index] = new Flea();
+                        countFleasRemoved++;
+                        System.out.println(countFleasRemoved + "/" + fleaList.length + " fleas; points: 20");
+                        if (countFleasRemoved == fleaList.length){
+                            System.out.println("Congratulations! Bingo has defeated all fleas.");
+                        }
                         points += 20;
                     } else if (Objects.equals(flea.getBehavior().getClass(), UpDownBehavior.class)) {
                         count++;
                         if (count >= 2) {
                             gameObjects.removeValue(flea, true);
+                            fleaList[index] = new Flea();
+                            countFleasRemoved++;
+                            System.out.println(countFleasRemoved + "/" + fleaList.length + " fleas; points: 10");
+                            if (countFleasRemoved == fleaList.length){
+                                System.out.println("Congratulations! Bingo has defeated all fleas.");
+                            }
                             points += 10;
                         }
                     }
 
                 }
+                index++;
             }
 
         }
@@ -120,6 +146,7 @@ public class GameInput extends InputAdapter implements GameObservable {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void registerObserver(GameObserver o) {

@@ -1,5 +1,6 @@
 package at.compus02.swd.ss2022.game;
 
+import at.compus02.swd.ss2022.game.behavior.Behavior;
 import at.compus02.swd.ss2022.game.behavior.RightLeftBehavior;
 import at.compus02.swd.ss2022.game.behavior.UpDownBehavior;
 import at.compus02.swd.ss2022.game.factories.FactoryCreateEnemy;
@@ -116,6 +117,7 @@ public class Main extends ApplicationAdapter {
 			gameObject.draw(batch);
 		}
 		font.draw(batch, "points: " + gameInput.getPoints(), -220, -220);
+		font.draw(batch, "damage: " + Behavior.getHarm(), 150, -220);
 		batch.end();
 	}
 

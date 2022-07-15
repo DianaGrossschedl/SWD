@@ -12,6 +12,14 @@ public abstract class Behavior {
     protected int count = 1;
     protected PositionObserver positionObserver;
 
+    static int harm;
+    public static int getHarm() {
+        return harm;
+    }
+    public static void setHarm(int harm) {
+        Behavior.harm = harm;
+    }
+
     public Behavior(PositionObserver positionObserver) {
         this.positionObserver = positionObserver;
     }
@@ -29,6 +37,7 @@ public abstract class Behavior {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
+            setHarm(getHarm()-10);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {
